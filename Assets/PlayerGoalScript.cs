@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GoalScript : MonoBehaviour
+public class PlayerGoalScript : MonoBehaviour
 {
 
     public AudioClip sound;
@@ -13,7 +13,7 @@ public class GoalScript : MonoBehaviour
         if (other.gameObject.tag == "Asteroid")
         {
             Rigidbody asteroid = other.gameObject.GetComponent<Rigidbody>();
-            if (Mathf.Abs(asteroid.transform.position.x) < Mathf.Abs(transform.position.x))
+            if (asteroid.transform.position.z > transform.position.z)
             {
                 PlayClip(sound, soundVolume);
             }

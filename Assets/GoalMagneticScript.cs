@@ -5,21 +5,17 @@ using UnityEngine;
 public class GoalMagneticScript : MonoBehaviour
 {
     private Rigidbody catched;
+    private float decreasing = 0.99f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
         if (catched && Mathf.Abs(catched.transform.position.x) < Mathf.Abs(transform.position.x))
         {
             Vector3 direction = (transform.position - catched.transform.position);
-            float distance = Vector3.Distance(transform.position, catched.transform.position);
-            catched.AddForce(direction * 75 / Mathf.Max(distance, 1), ForceMode.Force);
+            float distance = Mathf.Max(Vector3.Distance(transform.position, catched.transform.position), 1f);
+            catched.AddForce(direction * 75 / distance, ForceMode.Force);
+            catched.transform.localScale *= decreasing;
+            catched.mass *= decreasing;
         }
     }
 
