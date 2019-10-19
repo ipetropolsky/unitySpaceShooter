@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -12,21 +10,27 @@ public class PlayerScript : MonoBehaviour
     public float shotDelay;
     public float shotVelocity;
     public GameObject explosion;
-
+    
     private Rigidbody player;
     private float nextShotTime;
+    private GameControllerScript gameController;
 
     void Start()
     {
         player = GetComponent<Rigidbody>();
+        gameController = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerScript>();
     }
 
     void Update()
     {
+        if (gameController.gameOver || gameController.gamePaused) {
+            return;
+        }
+
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
         player.velocity = new Vector3(moveX, 0, moveZ) * speed;
-
+        
         player.rotation = Quaternion.Euler(player.velocity.z * tiltX, 0, -player.velocity.x * tiltZ);
         float x = Mathf.Clamp(player.position.x, xMin, xMax);
         float z = Mathf.Clamp(player.position.z, zMin, zMax);
@@ -49,6 +53,9 @@ public class PlayerScript : MonoBehaviour
             explosionInstance.transform.localScale = new Vector3(20, 20, 20);
             Destroy(other.gameObject);
             Destroy(gameObject);
+
+            gameController.GameOver();
         }
     }
+
 }

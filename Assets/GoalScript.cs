@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GoalScript : MonoBehaviour
 {
@@ -12,6 +10,7 @@ public class GoalScript : MonoBehaviour
     {
         if (other.gameObject.tag == "Asteroid")
         {
+
             Rigidbody asteroid = other.gameObject.GetComponent<Rigidbody>();
             if (Mathf.Abs(asteroid.transform.position.x) < Mathf.Abs(transform.position.x))
             {

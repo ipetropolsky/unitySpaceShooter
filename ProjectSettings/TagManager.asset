@@ -7,6 +7,8 @@ TagManager:
   - GameBoundary
   - LazerShot
   - Asteroid
+  - FxTemporaire
+  - Menu
   layers:
   - Default
   - TransparentFX
